@@ -1,5 +1,7 @@
 package com.sergax.javacore.tasks;
 
+import java.util.*;
+
 /*
 Задание 2
 Дан массив целых чисел.
@@ -16,16 +18,36 @@ Result: false
 
  */
 public class Task2 {
-    int counter = 0;
-
-    public void duplicatesInArray(int[] array) {
+    public boolean duplicatesInArray(int[] array) {
+        // O(n^2)
+        if(array.length <= 1) return false;
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
-                while (array[i] == array[j + 1]) {
-                    counter++;
-                    System.out.println(counter);
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] == array[j]) {
+                    return true;
                 }
             }
         }
+        return false;
+    }
+
+    public boolean duplicatesInArrayByList(int[] array) {
+        // O(log n)
+        List<Integer> newList = new ArrayList<>();
+
+        for (int j : array) {
+            newList.add(j);
+        }
+
+        if(newList.size() < 1) return false;
+
+        Collections.sort(newList);
+
+        for (int i = 0; i < newList.size() - 1; i++) {
+            if(Objects.equals(newList.get(i), newList.get(i + 1))) {
+                return true;
+            }
+        }
+        return false;
     }
 }

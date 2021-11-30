@@ -14,7 +14,7 @@ public class TreeMapDemo2A {
         // instead new CompThenByFirstName(), we can use Comparator.reversOrder()
         Comparator<String> compLastThenFirst = compLN.thenComparing(new CompThenByFirstName());
 
-        // crate tree map
+        // create tree map
         TreeMap<String, Double> tm = new TreeMap<>(compLastThenFirst);
         // put elements to tree map
         tm.put("Jon Dow", 3434.34);
