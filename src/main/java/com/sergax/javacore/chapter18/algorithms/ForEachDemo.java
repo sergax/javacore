@@ -1,4 +1,4 @@
-package com.sergax.javacore.chapter18.collections;
+package com.sergax.javacore.chapter18.algorithms;
 
 import java.util.ArrayList;
 

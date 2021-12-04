@@ -1,8 +1,8 @@
-package com.sergax.javacore.chapter18.collections;
+package com.sergax.javacore.chapter18.collections.map;
 
 import java.util.*;
 
-public class HTDemo {
+public class HTDemo2 {
     public static void main(String[] args) {
         Hashtable<String, Double> balance = new Hashtable<>();
         Enumeration<String> names;
@@ -16,10 +16,14 @@ public class HTDemo {
         balance.put("Tod Hall", 99.22);
         balance.put("Ralph Smith", -19.08);
 
-        // show all bills in hash table
-        names = balance.keys();
-        while (names.hasMoreElements()) {
-            str = names.nextElement();
+        // get all keys in set
+        Set<String> set = balance.keySet();
+
+        // get iterator
+        Iterator<String> itr = set.iterator();
+
+        while (itr.hasNext()) {
+            str = itr.next();
             System.out.println(str + " : " + balance.get(str));
         }
         System.out.println();
