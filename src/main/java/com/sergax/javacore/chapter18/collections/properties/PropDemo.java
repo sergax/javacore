@@ -1,4 +1,4 @@
-package com.sergax.javacore.chapter18.collections;
+package com.sergax.javacore.chapter18.collections.properties;
 
 import java.util.*;
 
@@ -26,4 +26,3 @@ public class PropDemo {
         System.out.println("Capital of state Florida " + str + ".");
     }
 }
-

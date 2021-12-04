@@ -1,4 +1,4 @@
-package com.sergax.javacore.chapter18.collections;
+package com.sergax.javacore.chapter18.collections.queue;
 
 import java.util.ArrayDeque;
 

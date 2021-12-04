@@ -1,14 +1,24 @@
-package com.sergax.javacore.chapter18.comparator;
+package com.sergax.javacore.chapter18.collections.map;
 
+import com.sergax.javacore.chapter18.comparator.CompLastName;
+import com.sergax.javacore.chapter18.comparator.CompThenByFirstName;
+
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class TreeMapDemo2 {
+public class TreeMapDemo2A {
     public static void main(String[] args) {
-        // create tree map
-        TreeMap<String, Double> tm = new TreeMap<>(new TComp());
+        // use method thenComparing() for creating comparator,
+        // which compares last name at first and then F.L. depositors
+        // if last names are equal
+        CompLastName compLN = new CompLastName();
+        // instead new CompThenByFirstName(), we can use Comparator.reversOrder()
+        Comparator<String> compLastThenFirst = compLN.thenComparing(new CompThenByFirstName());
 
+        // create tree map
+        TreeMap<String, Double> tm = new TreeMap<>(compLastThenFirst);
         // put elements to tree map
         tm.put("Jon Dow", 3434.34);
         tm.put("Tom Smith", 123.22);
