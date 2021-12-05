@@ -1,5 +1,6 @@
 package com.sergax.javacore.tasks;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 /*
@@ -20,7 +21,7 @@ Result: false
 public class Task2 {
     public boolean duplicatesInArray(int[] array) {
         // O(n^2)
-        if(array.length <= 1) return false;
+        if (array.length <= 1) return false;
         for (int i = 0; i < array.length; i++) {
             for (int j = i + 1; j < array.length; j++) {
                 if (array[i] == array[j]) {
@@ -39,12 +40,25 @@ public class Task2 {
             newList.add(j);
         }
 
-        if(newList.size() < 1) return false;
+        if (newList.size() < 1) return false;
 
         Collections.sort(newList);
 
         for (int i = 0; i < newList.size() - 1; i++) {
-            if(Objects.equals(newList.get(i), newList.get(i + 1))) {
+            if (Objects.equals(newList.get(i), newList.get(i + 1))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean duplicatesInArrayByHashMap(int[] array) {
+        // O(1)
+        Map<Integer, Integer> newMap = new HashMap<>();
+        for (int j : array) {
+            if (!newMap.containsKey(j)) {
+                newMap.put(j, 1);
+            } else {
                 return true;
             }
         }

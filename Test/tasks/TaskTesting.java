@@ -19,5 +19,6 @@ public class TaskTesting {
         Task2 task2 = new Task2();
         System.out.println(task2.duplicatesInArray(new int[]{4, 6, 5, 6}));
         System.out.println(task2.duplicatesInArrayByList(new int[]{1}));
+        System.out.println(task2.duplicatesInArrayByHashMap(new int[]{1,3,5,5}));
     }
 }
