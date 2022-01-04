@@ -1,76 +1,49 @@
 package com.sergax.javacore.multithreading;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 public class Foo {
-    private final static String FIRST = "first";
-    private final static String SECOND = "second";
-    private final static String THIRD = "third";
+    private final Object object = new Object();
+    private String lastState = null;
+    private static final String FIRST = "first";
+    private static final String SECOND = "second";
+    private static final String THIRD = "third";
 
-    public void first(Runnable r) {
-        System.out.print(FIRST);
-    }
-
-    public void second(Runnable r) {
-        System.out.print(SECOND);
-    }
-
-    public void third(Runnable r) {
-        System.out.print(THIRD);
-    }
-
-
-    public Foo execute() {
-        try {
-            ExecutorService executor = Executors.newFixedThreadPool(1);
-            executor.submit(r);
-            executor.submit(r1);
-            executor.submit(r2);
-
-            executor.shutdown();
-            executor.awaitTermination(1, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    Runnable r = new Runnable() {
-        @Override
-        public void run() {
-            first(r);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    void first() throws InterruptedException {
+        synchronized (object) {
+            while (true) {
+                if (THIRD.equals(lastState) || Objects.isNull(lastState)) {
+                    break;
+                } else {
+                    object.wait();
+                    break;
+                }
             }
+            System.out.println(FIRST);
+            lastState = FIRST;
+            object.notifyAll();
         }
-    };
+    }
 
-    Runnable r1 = new Runnable() {
-        @Override
-        public void run() {
-            second(r1);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    void second() throws InterruptedException {
+        synchronized (object) {
+            while (!FIRST.equals(lastState)) {
+                object.wait();
             }
+            System.out.println(SECOND);
+            lastState = SECOND;
+            object.notifyAll();
         }
-    };
+    }
 
-    Runnable r2 = new Runnable() {
-
-        @Override
-        public void run() {
-            third(r2);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    void third() throws InterruptedException {
+        synchronized (object) {
+            while (!SECOND.equals(lastState)) {
+                object.wait();
             }
+            System.out.println(THIRD);
+            lastState = THIRD;
+            object.notifyAll();
         }
-    };
+    }
 }
