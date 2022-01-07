@@ -1,14 +1,15 @@
-package com.sergax.javacore.multithreading;
+package com.sergax.javacore.multithreading.waitAndNotify;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class A implements Runnable {
+class C implements Runnable {
     private Foo foo;
 
+    @Override
     public void run() {
         try {
-            foo.first();
+            foo.third();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

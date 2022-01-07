@@ -1,9 +1,9 @@
-package com.sergax.javacore.multithreading;
+package com.sergax.javacore.multithreading.waitAndNotify;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class B implements Runnable {
+class B implements Runnable {
 
     private Foo foo;
 

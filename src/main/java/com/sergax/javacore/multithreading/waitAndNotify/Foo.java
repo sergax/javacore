@@ -1,8 +1,8 @@
-package com.sergax.javacore.multithreading;
+package com.sergax.javacore.multithreading.waitAndNotify;
 
 import java.util.Objects;
 
-public class Foo {
+class Foo {
     private final Object object = new Object();
     private String lastState = null;
     private static final String FIRST = "first";
