@@ -1,4 +1,7 @@
-package com.sergax.javacore.multithreading;
+package com.sergax.javacore.multithreading.semaphore;
+
+import java.util.concurrent.*;
+
 /*
 Дан класс:
 public class Foo {
@@ -16,19 +19,15 @@ public class Foo {
 Вывод: "firstsecondthird"
 Мы не знаем, в каком порядке будут вызваны методы, но должны гарантировать порядок.
  */
-public class Main {
+class Main {
     public static void main(String[] args) throws InterruptedException {
         Foo foo = new Foo();
+        ExecutorService executorService = ForkJoinPool.commonPool();
 
-        Thread threadA = new Thread(new A(foo));
-        Thread threadB = new Thread(new B(foo));
-        Thread threadC = new Thread(new C(foo));
-        threadA.start();
-        threadB.start();
-        threadC.start();
+        executorService.execute(foo::first);
+        executorService.execute(foo::second);
+        executorService.execute(foo::third);
 
-        threadA.join();
-        threadB.join();
-        threadC.join();
+        executorService.shutdown();
     }
 }
