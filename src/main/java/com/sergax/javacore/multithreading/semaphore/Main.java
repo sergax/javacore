@@ -1,7 +1,5 @@
 package com.sergax.javacore.multithreading.semaphore;
 
-import java.util.concurrent.*;
-
 /*
 Дан класс:
 public class Foo {
@@ -22,12 +20,16 @@ public class Foo {
 class Main {
     public static void main(String[] args) throws InterruptedException {
         Foo foo = new Foo();
-        ExecutorService executorService = ForkJoinPool.commonPool();
 
-        executorService.execute(foo::first);
-        executorService.execute(foo::second);
-        executorService.execute(foo::third);
+        Thread threadA = new Thread(new A(foo));
+        Thread threadB = new Thread(new B(foo));
+        Thread threadC = new Thread(new C(foo));
+        threadA.start();
+        threadB.start();
+        threadC.start();
 
-        executorService.shutdown();
+        threadA.join();
+        threadB.join();
+        threadC.join();
     }
 }
