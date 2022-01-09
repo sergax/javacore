@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 class A implements Runnable {
     private Foo foo;
 
+    @Override
     public void run() {
         try {
             foo.first();
