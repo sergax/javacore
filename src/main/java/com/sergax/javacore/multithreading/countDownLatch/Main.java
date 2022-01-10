@@ -1,4 +1,6 @@
-package com.sergax.javacore.multithreading.semaphore;
+package com.sergax.javacore.multithreading.countDownLatch;
+
+import java.util.concurrent.*;
 
 /*
 Дан класс:
@@ -20,16 +22,34 @@ public class Foo {
 class Main {
     public static void main(String[] args) throws InterruptedException {
         Foo foo = new Foo();
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        CompletableFuture<Void> cf2 = CompletableFuture.runAsync(() ->
+        {
+            try {
+                foo.second(new B());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, executorService);
 
-        Thread threadA = new Thread(new A(foo));
-        Thread threadB = new Thread(new B(foo));
-        Thread threadC = new Thread(new C(foo));
-        threadA.start();
-        threadB.start();
-        threadC.start();
+        CompletableFuture<Void> cf1 = CompletableFuture.runAsync(() ->
+        {
+            try {
+                foo.first(new A());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, executorService);
 
-        threadA.join();
-        threadB.join();
-        threadC.join();
+        CompletableFuture<Void> cf3 = CompletableFuture.runAsync(() ->
+        {
+            try {
+                foo.third(new C());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, executorService);
+
+        executorService.shutdown();
     }
 }

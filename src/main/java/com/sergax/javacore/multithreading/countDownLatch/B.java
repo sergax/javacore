@@ -1,15 +1,12 @@
-package com.sergax.javacore.multithreading.semaphore;
+package com.sergax.javacore.multithreading.countDownLatch;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-class A implements Runnable {
+class B implements Runnable {
     private Foo foo;
 
     @Override
     public void run() {
         try {
-            foo.first();
+            foo.second(new B());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
